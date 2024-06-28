@@ -3,7 +3,7 @@ import time
 
 import everai.utils.cmd
 from everai.app import App, context, VolumeRequest
-from everai.autoscaling import SimpleAutoScalingPolicy
+from everai_autoscaler.builtin import SimpleAutoScaler
 from everai.image import Image, BasicAuth
 from everai.resource_requests import ResourceRequests
 from everai.placeholder import Placeholder
@@ -32,7 +32,7 @@ app = App(
         cpu_num=1,
         memory_mb=1024,
     ),
-    autoscaling_policy=SimpleAutoScalingPolicy(
+    autoscaler=SimpleAutoScaler(
         min_workers=Placeholder(kind='ConfigMap', name=CONFIGMAP_NAME, key='min_workers'),
         max_workers=Placeholder(kind='ConfigMap', name=CONFIGMAP_NAME, key='max_workers'),
         max_queue_size=Placeholder(kind='ConfigMap', name=CONFIGMAP_NAME, key='max_queue_size'),
@@ -42,8 +42,8 @@ app = App(
 )
 
 
-# https://everai.expvent.com/api/v1/apps/get-start/txt2img
-# curl -X POST -H'Content-Type: application/json' http://localhost:8866/txt2img/jone -d '{"prompt": "say hello to"}'
+# https://everai.expvent.com/api/v1/apps/default/get-start/txt2img
+# curl -X POST -H'Content-Type: application/json' http://localhost:80/txt2img/jone -d '{"prompt": "say hello to"}'
 @app.service.route('/txt2img/<name>', methods=['POST'])
 def txt2img(name: str):
     data = flask.request.json
@@ -53,7 +53,7 @@ def txt2img(name: str):
     return f"{prompt} - {name}"
 
 
-# curl http://localhost:8866/show-volume
+# curl http://localhost:80/show-volume
 @app.service.route('/show-volume', methods=['GET'])
 def show_volume():
     volume = context.get_volume(VOLUME_NAME)
@@ -62,8 +62,8 @@ def show_volume():
         return f.read()
 
 
-# https://everai.expvent.com/api/apps/v1/routes/get-start/sse
-# http://localhost:8686/sse
+# https://everai.expvent.com/api/v1/apps/default/get-start/sse
+# http://localhost:80/sse
 @app.service.route('/sse', methods=['GET'])
 def sse():
     def generator():

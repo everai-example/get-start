@@ -1,6 +1,8 @@
-## 1. create an app
+## 1. Login EVERAI CLI
+login by token you got in [EverAI](https://everai.expvent.com).  
+
 ```shell
-ever app create get-start
+everai login --token <your token>
 ```
 ## 2. create secrets
 >Optional, depending on whether the model and image require security certification
@@ -9,7 +11,7 @@ In this case, we will create two secrets for huggingface and quay.io
 ```shell
 ever secret create your-huggingface-secret-name --from-literal token=foo
 
-ever secret create your-quay-io-secret-name \
+ever secret create quay-secret \
   --from-literal username=foo \
   --from-literal password=bar 
 ```
@@ -17,7 +19,7 @@ ever secret create your-quay-io-secret-name \
 ## 3. create configmap
 >Optional, but you can use configmap for adjust autoscaling after deploy 
 ```shell
-ever configmap create autoscaling-config \ 
+ever configmap create get-start-configmap \ 
   --from-literal min_workers=1 \
   --from-literal max_workers=5 \
   --from-literal max_queue_size=2 \
@@ -59,10 +61,10 @@ ever image build
 ## 8. deploy image
 The final step is to deploy your app to everai and keep it running.
 ```shell
-ever app deploy
+ever app create
 ```
 
 Now, you can make a test call for your app, in this example looks like
 ```shell
-curl -X GET https://everai.expvent.com/api/apps/v1/routes/get-start/sse
+curl -X GET https://everai.expvent.com/api/v1/apps/default/get-start/sse
 ```
