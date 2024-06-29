@@ -1,5 +1,5 @@
-## 1. Login EVERAI CLI
-login by token you got in [EverAI](https://everai.expvent.com).  
+## 1. login EverAI CLI
+Login by token you got in [EverAI](https://everai.expvent.com).  
 
 ```shell
 everai login --token <your token>
