@@ -2,7 +2,7 @@
 Login by token you got in [EverAI](https://everai.expvent.com).  
 
 ```shell
-everai login --token <your token>
+ever login --token <your token>
 ```
 ## 2. create secrets
 >Optional, depending on whether the model and image require security certification
