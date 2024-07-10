@@ -66,5 +66,5 @@ ever app create
 
 Now, you can make a test call for your app, in this example looks like
 ```shell
-curl -X GET https://everai.expvent.com/api/v1/apps/default/get-start/sse
+curl -X GET https://everai.expvent.com/api/routes/v1/default/get-start/sse
 ```
