@@ -1,7 +1,6 @@
 import os
 import time
 
-import everai.utils.cmd
 from everai.app import App, context, VolumeRequest
 from everai_autoscaler.builtin import SimpleAutoScaler
 from everai.image import Image, BasicAuth
@@ -24,7 +23,7 @@ app = App(
     'get-start',
     image=image,
     volume_requests=[
-        VolumeRequest(name=VOLUME_NAME, create_if_not_exists=True),
+        VolumeRequest(name=VOLUME_NAME),
     ],
     secret_requests=[QUAY_IO_SECRET_NAME],
     configmap_requests=[CONFIGMAP_NAME],
