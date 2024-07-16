@@ -35,7 +35,7 @@ you could test in your local machine will following command
 ever app run
 ```
 
-## 6. prepare volume<span style="color:red">*</span>
+## 5. prepare volume<span style="color:red">*</span>
 Before your application cloud be deployed, you should construct your volume first, 
 if your app use at least one volume.
 
@@ -49,7 +49,7 @@ ever app prepare
 This command line will call all functions who decorated by @app.prepare,
 in these functions you should set up volume data before the app use it
 
-## 7. build image
+## 6. build image
 This step will build the container image, using two very simple files [Dockerfile](Dockerfile) and [image_builder.py](image_builder.py), 
 and call the following command will compile the image and push them to your specified registry.
 >The dependence of this step is docker and buildx installed on your machine. 
@@ -58,7 +58,7 @@ and call the following command will compile the image and push them to your spec
 ever image build
 ```
 
-## 8. deploy image
+## 7. deploy image
 The final step is to deploy your app to everai and keep it running.
 ```shell
 ever app create
