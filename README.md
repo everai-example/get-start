@@ -19,7 +19,7 @@ ever secret create quay-secret \
 ## 3. create configmap
 >Optional, but you can use configmap for adjust autoscaling after deploy 
 ```shell
-ever configmap create get-start-configmap \ 
+ever configmap create get-start-configmap \
   --from-literal min_workers=1 \
   --from-literal max_workers=5 \
   --from-literal max_queue_size=2 \
@@ -27,7 +27,14 @@ ever configmap create get-start-configmap \
   --from-literal max_idle_time=60
 ```
 
-## 4. write your app code in python
+## 4. create volume
+Before your application cloud be deployed, you should construct your volume first, 
+if your app use at least one volume.
+```shell
+ever volume create get-start-volume 
+```
+
+## 5. write your app code in python
 There is an example code in [app.py](app.py)
 
 you could test in your local machine will following command
@@ -35,10 +42,7 @@ you could test in your local machine will following command
 ever app run
 ```
 
-## 5. prepare volume<span style="color:red">*</span>
-Before your application cloud be deployed, you should construct your volume first, 
-if your app use at least one volume.
-
+## 6. prepare volume<span style="color:red">*</span>
 For production environment, the volumes are very important,
 you could call the following command to prepare it.
 
@@ -49,7 +53,7 @@ ever app prepare
 This command line will call all functions who decorated by @app.prepare,
 in these functions you should set up volume data before the app use it
 
-## 6. build image
+## 7. build image
 This step will build the container image, using two very simple files [Dockerfile](Dockerfile) and [image_builder.py](image_builder.py), 
 and call the following command will compile the image and push them to your specified registry.
 >The dependence of this step is docker and buildx installed on your machine. 
@@ -58,7 +62,7 @@ and call the following command will compile the image and push them to your spec
 ever image build
 ```
 
-## 7. deploy image
+## 8. deploy image
 The final step is to deploy your app to everai and keep it running.
 ```shell
 ever app create
