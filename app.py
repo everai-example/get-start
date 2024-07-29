@@ -2,7 +2,7 @@ import os
 import time
 
 from everai.app import App, context, VolumeRequest
-from everai_autoscaler.builtin import SimpleAutoScaler
+from everai_autoscaler.builtin import FreeWorkerAutoScaler
 from everai.image import Image, BasicAuth
 from everai.resource_requests import ResourceRequests
 from everai.placeholder import Placeholder
@@ -31,7 +31,7 @@ app = App(
         cpu_num=1,
         memory_mb=1024,
     ),
-    autoscaler=SimpleAutoScaler(
+    autoscaler=FreeWorkerAutoScaler(
         min_workers=Placeholder(kind='ConfigMap', name=CONFIGMAP_NAME, key='min_workers'),
         max_workers=Placeholder(kind='ConfigMap', name=CONFIGMAP_NAME, key='max_workers'),
         min_free_workers=Placeholder(kind='ConfigMap', name=CONFIGMAP_NAME, key='min_free_workers'),
