@@ -1,2 +1,2 @@
-everai~=0.2.22
+everai~=0.2.31
 Flask~=3.0.2
